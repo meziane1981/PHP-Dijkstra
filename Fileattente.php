@@ -4,7 +4,7 @@
  * Author: doug@neverfear.org
  */
 
-class PriorityList {
+class PrioritList {
 	public $next;
 	public $data;
 	function __construct($data) {
@@ -15,35 +15,35 @@ class PriorityList {
 
 class PriorityQueue {
 	
-	private $size;
-	private $liststart;
-	private $comparator;
+	private $taille;
+	private $talistscommencer;
+	private $comparateur;
 	
-	function __construct($comparator) {
-		$this->size = 0;
-		$this->liststart = null;
-		$this->listend = null;
-		$this->comparator = $comparator;
+	function __construct($comparateur) {
+		$this->taille = 0;
+		$this->talistscommencer = null;
+		$this->listfin = null;
+		$this->comparateur = $comparateur;
 	}
 	
 	function add($x) {
-		$this->size = $this->size + 1;
+		$this->taille = $this->taille + 1;
 		
-		if($this->liststart == null) {
-			$this->liststart = new PriorityList($x);
+		if($this->talistscommencer == null) {
+			$this->talistscommencer = new PrioritList($x);
 		} else {
-			$node = $this->liststart;
-			$comparator = $this->comparator;
-			$newnode = new PriorityList($x);
+			$node = $this->talistscommencer;
+			$comparateur = $this->comparateur;
+			$newnode = new PrioritList($x);
 			$lastnode = null;
 			$added = false;
 			while($node) {
-				if ($comparator($newnode, $node) < 0) {
+				if ($comparateur($newnode, $node) < 0) {
 					// newnode has higher priority
 					$newnode->next = $node;
 					if ($lastnode == null) {
 						//print "last node is null\n";
-						$this->liststart = $newnode;
+						$this->talistscommencer = $newnode;
 					} else {
 						//print "Debug: " . $newnode->data . " has lower priority than " . $lastnode->data . "\n";
 						$lastnode->next = $newnode;
@@ -55,16 +55,16 @@ class PriorityQueue {
 				$node = $node->next;
 			}
 			if (!$added) {
-				// Lowest priority - add to the very end
+				// Lowest priority - add to the very fin
 				$lastnode->next = $newnode;
 			}
 		}
-		//print "Debug: Appended node. New size=" . $this->size . "\n";
+		//print "Debug: Appfined node. New taille=" . $this->taille . "\n";
 		//$this->debug();
 	}
 	
 	function debug() {
-		$node = $this->liststart;
+		$node = $this->talistscommencer;
 		$i = 0;
 		if (!$node) {
 			print "<< No nodes >>\n";
@@ -77,19 +77,19 @@ class PriorityQueue {
 		}
 	}
 	
-	function size() {
-		return $this->size;
+	function taille() {
+		return $this->taille;
 	}
 	
 	function peak() {
-		return $this->liststart->data;
+		return $this->talistscommencer->data;
 	}
 	
 	function remove() {
 		$x = $this->peak();
-		$this->size = $this->size - 1;
-		$this->liststart = $this->liststart->next;
-		//print "Debug: Removed node. New size=" . $this->size . "\n";
+		$this->taille = $this->taille - 1;
+		$this->talistscommencer = $this->talistscommencer->next;
+		//print "Debug: Removed node. New taille=" . $this->taille . "\n";
 		//$this->debug();
 		return $x;
 	}
