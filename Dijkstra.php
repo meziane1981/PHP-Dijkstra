@@ -1,7 +1,5 @@
 <?php
-/*
- * Author: doug@neverfear.org
- */
+ 
 
 require_once("PriorityQueue.php");
 
